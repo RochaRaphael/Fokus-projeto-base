@@ -13,9 +13,9 @@ const musicaPause = new Audio ('/sons/pause.mp3')
 const musicaPlay = new Audio ('/sons/play.wav')
 musica.loop = true;
 
-const duracaoFoco = 2; 
-const duracaoDescansoCurto = 4; 
-const duracaoDescansoLongo = 8; 
+const duracaoFoco = 4; 
+const duracaoDescansoCurto = 8; 
+const duracaoDescansoLongo = 16; 
 let intervaloId;
 let tempoDecorridoEmSegundos = 2
 var cronometroLigado = false;
@@ -83,7 +83,6 @@ function alteraContexto(contexto)
     }
     
 }
-
 
 function iniciarCronometro() {
     intervaloId = setInterval(contagemRegressiva, 1000);
