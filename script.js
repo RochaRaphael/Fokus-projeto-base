@@ -13,7 +13,7 @@ const musicaPause = new Audio ('/sons/pause.mp3')
 const musicaPlay = new Audio ('/sons/play.wav')
 musica.loop = true;
 
-const duracaoFoco = 4; 
+const focusDuration = 4; 
 const duracaoDescansoCurto = 8; 
 const duracaoDescansoLongo = 16; 
 let intervaloId;
@@ -27,15 +27,17 @@ musicaFocoInput.addEventListener('change', () => {
 let numeroDeTrocas = 1
 
 const contagemRegressiva = () => {
-    if(tempoDecorridoEmSegundos == 0) {
+    if(tempoDecorridoEmSegundos < 0) {
         musicaPause.play()
         pararCronometro()
+
 
         if(numeroDeTrocas != 7){
             if(numeroDeTrocas % 2 === 0){
                 alteraContexto('foco')
             }
             else{
+
                 if(numeroDeTrocas == 5){
                     alteraContexto('descanso-longo')
                 }
@@ -46,6 +48,13 @@ const contagemRegressiva = () => {
             iniciarCronometro()
             numeroDeTrocas++
         }
+        else{
+            //Esta disparando o evento para outros arquivos do projeto avisando que a tarefa foi finalizada
+            const evento = new CustomEvent('TarefaFinalizada')
+            document.dispatchEvent(evento)
+        }
+
+        
     }
     mostraTempo(tempoDecorridoEmSegundos)
     tempoDecorridoEmSegundos -= 1   
@@ -125,8 +134,8 @@ function contextoFoco(){
     longoBt.classList.remove('active')
     focoBt.classList.add('active')
 
-    mostraTempo(duracaoFoco)
-    tempoDecorridoEmSegundos = duracaoFoco
+    mostraTempo(focusDuration)
+    tempoDecorridoEmSegundos = focusDuration
 }
 
 function contextoDescansoCurto() {
